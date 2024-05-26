@@ -1,0 +1,29 @@
+import sqlite3
+
+# Connect to the database (creates the file if it doesn't exist)
+conn = sqlite3.connect('books.db')
+
+# Create a cursor object to execute SQL commands
+cur = conn.cursor()
+
+# Create a table for storing book details
+cur.execute('''CREATE TABLE IF NOT EXISTS Books (
+                id INTEGER PRIMARY KEY,
+                title TEXT,
+                author_id INTEGER,
+                publication_date TEXT,
+                genre TEXT,
+                isbn TEXT,
+                publisher TEXT
+            )''')
+
+# Create a table for storing author information
+cur.execute('''CREATE TABLE IF NOT EXISTS Authors (
+                id INTEGER PRIMARY KEY,
+                name TEXT,
+                biography TEXT
+            )''')
+
+# Commit the changes and close the connection
+conn.commit()
+conn.close()

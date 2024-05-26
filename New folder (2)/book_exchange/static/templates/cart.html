@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart - Book Exchange</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav {
+            background-color: #d7bce8; /* Light Purple */
+        }
+
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        nav ul li {
+            margin: 0 15px;
+        }
+
+        nav ul li a {
+            color: #333;
+            text-decoration: none;
+            padding: 15px 20px;
+            display: inline-block;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2, h3 {
+            color: #6a4c93; /* Darker Purple */
+        }
+
+        form {
+            margin: 20px 0;
+        }
+
+        form input, form button {
+            margin: 10px 0;
+            padding: 10px;
+            width: calc(100% - 22px);
+            border: 1px solid #ddd;
+        }
+
+        form input {
+            background-color: #f4e1ff; /* Very Light Purple */
+        }
+
+        form button {
+            background: #b19cd9; /* Medium Light Purple */
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        ul li {
+            background: #f9f9f9;
+            margin: 10px 0;
+            padding: 10px;
+            border: 1px solid #ddd;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        @media (max-width: 600px) {
+            nav ul {
+                flex-direction: column;
+            }
+
+            nav ul li {
+                margin: 5px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="home.html">Home</a></li>
+            <li><a href="login.html">Login</a></li>
+            <li><a href="catalog.html">Catalog</a></li>
+            <li><a href="cart.html">Cart</a></li>
+        </ul>
+    </nav>
+    <div class="container">
+        <h2>Your Cart</h2>
+        <form id="checkout-form">
+            <ul id="cart-list">
+                <!-- Static list of books in the cart with checkboxes for selection -->
+                <li>
+                    <input type="checkbox" name="book1" id="book1" data-price="10">
+                    <label for="book1">
+                        <img src="book1.jpg" alt="Book 1 Image">
+                        Book 1 by Author 1, Price: $10
+                    </label>
+                </li>
+                <li>
+                    <input type="checkbox" name="book2" id="book2" data-price="15">
+                    <label for="book2">
+                        <img src="book2.jpg" alt="Book 2 Image">
+                        Book 2 by Author 2, Price: $15
+                    </label>
+                </li>
+                <li>
+                    <input type="checkbox" name="book3" id="book3" data-price="20">
+                    <label for="book3">
+                        <img src="book3.jpg" alt="Book 3 Image">
+                        Book 3 by Author 3, Price: $20
+                    </label>
+                </li>
+                <li>
+                    <input type="checkbox" name="book4" id="book4" data-price="12">
+                    <label for="book4">
+                        <img src="book4.jpg" alt="Book 4 Image">
+                        Book 4 by Author 4, Price: $12
+                    </label>
+                </li>
+                <li>
+                    <input type="checkbox" name="book5" id="book5" data-price="18">
+                    <label for="book5">
+                        <img src="book5.jpg" alt="Book 5 Image">
+                        Book 5 by Author 5, Price: $18
+                    </label>
+                </li>
+                <li>
+                    <input type="checkbox" name="book6" id="book6" data-price="25">
+                    <label for="book6">
+                        <img src="book6.jpg" alt="Book 6 Image">
+                        Book 6 by Author 6, Price: $25
+                    </label>
+                </li>
+                <!-- Add more items as needed -->
+            </ul>
+        </form>
+        <div id="total-price">
+            <!-- Display total price -->
+            Total Price: $0
+        </div>
+        <button id="checkout-button">Proceed to Checkout</button>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const checkoutForm = document.getElementById('checkout-form');
+            const totalPriceDisplay = document.getElementById('total-price');
+            const checkoutButton = document.getElementById('checkout-button');
+
+            // Function to calculate total price based on selected books
+            function calculateTotalPrice() {
+                let totalPrice = 0;
+                checkoutForm.querySelectorAll('input[type="checkbox"]:checked').forEach(function(checkbox) {
+                    const price = parseInt(checkbox.getAttribute('data-price'));
+                    totalPrice += price;
+                });
+                return totalPrice;
+            }
+
+            // Event listener for changes in checkbox selections
+            checkoutForm.addEventListener('change', function() {
+                const totalPrice = calculateTotalPrice();
+                totalPriceDisplay.textContent = `Total Price: $${totalPrice}`;
+            });
+
+            // Event listener for clicking "Proceed to Checkout" button
+            checkoutButton.addEventListener('click', function() {
+                // Calculate total price and show popup alert
+                const totalPrice = calculateTotalPrice();
+                alert(`Total Price: $${totalPrice}\nProceeding to payment...`);
+                // Redirect to payment page after showing the alert
+                window.location.href = 'payment.html'; // Change 'payment.html' to your actual payment page URL
+            });
+        });
+    </script>
+</body>
+</html>
